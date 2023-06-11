@@ -10,19 +10,16 @@ const tacharPostit = (li, titulo) => { //el parametro es el id del list item STR
       let tareasStorage = JSON.parse(localStorage.getItem("tareasStorage")); //agarra el localStorage
       let objetoTarea = tareasStorage.find((el) => el.titulo === titulo);
       let postItATachar = document.getElementById(li);
-
       switch (objetoTarea.estado) {
             case "incompleta":
                   objetoTarea.estado = "completa";
                   postItATachar.classList.replace("incompleta", "completa");
-
                   break;
             case "completa":
                   objetoTarea.estado = "incompleta"
                   postItATachar.classList.replace("completa", "incompleta");
                   break;
       }
-
       localStorage.setItem("tareasStorage", JSON.stringify(tareasStorage));
 };
 
@@ -41,6 +38,30 @@ const render = (titulo, descripcion, estado) => {
       li.addEventListener("click", () => tacharPostit(li.id, titulo))
 };
 
+const eliminarCompletas = () => {
+      let tareasStorage = JSON.parse(localStorage.getItem("tareasStorage"));
+      let Tachadas = tareasStorage.filter((el) => el.estado === "completa"); //objeto con tareas tachadas
+      let noTachadas =   tareasStorage.filter((el) => el.estado === "incompleta");
+      if (tareasStorage.length === 0 || Tachadas.length === 0){
+            Toastify({
+                  text: "No Hay Tareas Para Eliminar",
+                  className: "info",
+                  gravity: "top", // `top` or `bottom`
+                  position: "center", // `left`, `center` or `right`
+                  style: {
+                        background: "#BF0603",
+                  }
+            }).showToast();
+      }  else {
+            for (let i of Tachadas){
+                  let titulosId = i.titulo.replace(/ /g, "-");
+                  let li = document.getElementById(`${titulosId}`);
+                  li.remove();
+            }
+            localStorage.setItem("tareasStorage", JSON.stringify(noTachadas));
+      }
+};
+
 const renderTotal = () => {
       let tareasStorage = JSON.parse(localStorage.getItem("tareasStorage"));
       if (tareasStorage) {
@@ -52,7 +73,6 @@ const renderTotal = () => {
             localStorage.setItem("tareasStorage", JSON.stringify(tareasStorage));
       }
 };
-
 
 const subirStorage = (objeto) => {
       let tareasStorage = JSON.parse(localStorage.getItem("tareasStorage"));
@@ -84,11 +104,16 @@ const crearTarea = (evento) => {
 
 
 
+
 let ul = document.getElementById("visor");
 
 let formulario = document.querySelector("form");
 
+let completas = document.getElementById("completas");
+let todo = document.getElementById("todo");
+
 formulario.addEventListener("submit", crearTarea);
+completas.addEventListener("click", eliminarCompletas);
 
 renderTotal();
 
