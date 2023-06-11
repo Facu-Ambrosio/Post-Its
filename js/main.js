@@ -6,22 +6,46 @@ class tareaNueva {
       }
 }
 
-const render = (titulo, descripcion) => {
+const tacharPostit = (li, titulo) => { //el parametro es el id del list item STR
+      let tareasStorage = JSON.parse(localStorage.getItem("tareasStorage")); //agarra el localStorage
+      let objetoTarea = tareasStorage.find((el) => el.titulo === titulo);
+      let postItATachar = document.getElementById(li);
+
+      switch (objetoTarea.estado) {
+            case "incompleta":
+                  objetoTarea.estado = "completa";
+                  postItATachar.classList.replace("incompleta", "completa");
+
+                  break;
+            case "completa":
+                  objetoTarea.estado = "incompleta"
+                  postItATachar.classList.replace("completa", "incompleta");
+                  break;
+      }
+
+      localStorage.setItem("tareasStorage", JSON.stringify(tareasStorage));
+};
+
+
+const render = (titulo, descripcion, estado) => {
       let li = document.createElement("li");
+      li.id = `${titulo.replace(/ /g, "-")}`;
+      li.classList.add(`${estado}`);
       li.innerHTML = `
-      <a href="" id = "${titulo.replace(/ /g, "-")}">
-            <h2>${titulo}</h2>
+      <div>
+            <h3>${titulo}</h3>
             <p>${descripcion}</p>
-      </a>
+      </div>
       `
       ul.appendChild(li);
+      li.addEventListener("click", () => tacharPostit(li.id, titulo))
 };
 
 const renderTotal = () => {
       let tareasStorage = JSON.parse(localStorage.getItem("tareasStorage"));
       if (tareasStorage) {
             for (let i of tareasStorage) {
-                  render(i.titulo, i.descripcion);
+                  render(i.titulo, i.descripcion, i.estado);
             }
       } else {
             tareasStorage = [];
@@ -45,7 +69,7 @@ const crearTarea = (evento) => {
       //AGREGAR AL LOCAL STORAGE (objetoTarea)
       subirStorage(objetoTarea);
       // FUNCION RENDER
-      render(titulo, descripcion);
+      render(titulo, descripcion, "incompleta");
       Toastify({
             text: "Acabas de Agregar una Tarea Nueva!!",
             className: "info",
@@ -57,6 +81,7 @@ const crearTarea = (evento) => {
       }).showToast();
       formulario.reset();
 };
+
 
 
 let ul = document.getElementById("visor");

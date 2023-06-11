@@ -35,7 +35,7 @@ main{
       background-color: #22AB82;
 }
 /* QUICK NOTES */
-h2 {
+h3 {
       font-weight: bold;
       word-wrap: break-word;
 }
@@ -57,7 +57,7 @@ ul {
       justify-content: center;
 }
 
-ul li a {
+ul li div {
       text-decoration: none;
       color: black;
       background: #FBE364;
@@ -69,10 +69,9 @@ ul li a {
       overflow: auto;
 }
 
-ul li a:hover{
-      color: black;
+.incompleta{
+      text-decoration:none;
 }
-
-.tachada{
+.completa{
       text-decoration:line-through;
 }
