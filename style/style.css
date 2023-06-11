@@ -1,0 +1,78 @@
+body{
+      background-color: #DAE0F2;
+}
+main{
+      width: 100%;
+}
+#floatingTextarea2{
+      height: 100px;
+}
+/* .centrarSubmit{
+      display: flex;
+      justify-content: center;
+} */
+.sectionGestor{
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      margin-top: 1%;
+}
+.sectionDescripcion{
+      width: 100%;
+}
+.sectionForm{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 90%;
+}
+.botonSubmit{
+      color: white;
+      background-color: #27C696;
+}
+.botonSubmit:hover{
+      background-color: #22AB82;
+}
+/* QUICK NOTES */
+h2 {
+      font-weight: bold;
+      word-wrap: break-word;
+}
+
+p {
+      font-size: 1rem;
+      font-weight: normal;
+      word-wrap: break-word;
+}
+
+ul,li {
+      list-style: none;
+      margin: 1em;
+}
+
+ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+}
+
+ul li a {
+      text-decoration: none;
+      color: black;
+      background: #FBE364;
+      display: block;
+      height: 15em;
+      width: 15em;
+      padding: 1em;
+      box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+      overflow: auto;
+}
+
+ul li a:hover{
+      color: black;
+}
+
+.tachada{
+      text-decoration:line-through;
+}

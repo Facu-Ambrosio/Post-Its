@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <link rel="stylesheet" href="./style/css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+      <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+      <main class="row">
+            <!-- parte gestor -->
+            <section class="col-4 sectionGestor" >
+                  <form action="" class="sectionForm" id="crear">
+                        <div class="input-group input-group-lg">
+                              <div class="form-floating">
+                                    <input class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="titulo"></input>
+                                    <label for="floatingTextarea">Titulo de la Tarea</label>
+                              </div>
+                        </div>
+                        <div class="form-floating sectionDescripcion">
+                              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="descripcion"></textarea>
+                              <label for="floatingTextarea2">Descripcion de la tarea</label>
+                        </div>
+                        <div class="centrarSubmit">
+                              <input type="submit" value="Crear" class="btn botonSubmit" >
+                        </div>
+                  </form>      
+            </section>
+
+            <!-- parte tareas -->
+            <section class="col-8">
+                  <ul id="visor">
+                  </ul> 
+            </section>
+      </main>
+
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+      <script src="./js/js/bootstrap.js"></script>
+      <script src="./js/main.js"></script>
+</body>
+
+</html>
