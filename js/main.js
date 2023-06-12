@@ -6,6 +6,28 @@ class tareaNueva {
       }
 }
 
+const eliminarTodo = (params) => {
+      //content
+};
+
+
+const alerta = (texto, color) => {
+      if (color === "rojo"){
+            color = "#BF0603";
+      } else {
+            color = "#27C696";
+      }
+      Toastify({
+            text: texto,
+            className: "info",
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            style: {
+                  background: `${color}`,
+            }
+      }).showToast();
+};
+
 const tacharPostit = (li, titulo) => { //el parametro es el id del list item STR
       let tareasStorage = JSON.parse(localStorage.getItem("tareasStorage")); //agarra el localStorage
       let objetoTarea = tareasStorage.find((el) => el.titulo === titulo);
@@ -22,7 +44,6 @@ const tacharPostit = (li, titulo) => { //el parametro es el id del list item STR
       }
       localStorage.setItem("tareasStorage", JSON.stringify(tareasStorage));
 };
-
 
 const render = (titulo, descripcion, estado) => {
       let li = document.createElement("li");
@@ -43,15 +64,7 @@ const eliminarCompletas = () => {
       let Tachadas = tareasStorage.filter((el) => el.estado === "completa"); //objeto con tareas tachadas
       let noTachadas =   tareasStorage.filter((el) => el.estado === "incompleta");
       if (tareasStorage.length === 0 || Tachadas.length === 0){
-            Toastify({
-                  text: "No Hay Tareas Para Eliminar",
-                  className: "info",
-                  gravity: "top", // `top` or `bottom`
-                  position: "center", // `left`, `center` or `right`
-                  style: {
-                        background: "#BF0603",
-                  }
-            }).showToast();
+            alerta("No Hay Tareas Para Eliminar","rojo")
       }  else {
             for (let i of Tachadas){
                   let titulosId = i.titulo.replace(/ /g, "-");
@@ -85,35 +98,28 @@ const crearTarea = (evento) => {
       let formData = new FormData(formulario);
       let titulo = formData.get("titulo");
       let descripcion = formData.get("descripcion");
-      let objetoTarea = new tareaNueva(titulo, descripcion); //crea el objeto tarea
-      //AGREGAR AL LOCAL STORAGE (objetoTarea)
-      subirStorage(objetoTarea);
-      // FUNCION RENDER
-      render(titulo, descripcion, "incompleta");
-      Toastify({
-            text: "Acabas de Agregar una Tarea Nueva!!",
-            className: "info",
-            gravity: "top", // `top` or `bottom`
-            position: "center", // `left`, `center` or `right`
-            style: {
-                  background: "#27C696",
-            }
-      }).showToast();
-      formulario.reset();
+      if (titulo === ""){
+            alerta("aviso: Tiene que Agregar un Titulo a la Tarea", "rojo");
+      } else {
+            let objetoTarea = new tareaNueva(titulo, descripcion); //crea el objeto tarea
+            //AGREGAR AL LOCAL STORAGE (objetoTarea)
+            subirStorage(objetoTarea);
+            // FUNCION RENDER
+            render(titulo, descripcion, "incompleta");
+            alerta("Acabas de Agregar una Tarea Nueva!!", "verde");
+            formulario.reset();
+      }
 };
-
-
-
-
-let ul = document.getElementById("visor");
 
 let formulario = document.querySelector("form");
 
+let ul = document.getElementById("visor");
 let completas = document.getElementById("completas");
 let todo = document.getElementById("todo");
 
 formulario.addEventListener("submit", crearTarea);
 completas.addEventListener("click", eliminarCompletas);
+todo.addEventListener("click", eliminarTodo);
 
 renderTotal();
 
