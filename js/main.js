@@ -6,10 +6,16 @@ class tareaNueva {
       }
 }
 
-const eliminarTodo = (params) => {
-      //content
+const eliminarTodo = () => {
+      let tareasStorage = JSON.parse(localStorage.getItem("tareasStorage")); 
+      for (let i of tareasStorage){
+            let titulosId = i.titulo.replace(/ /g, "-");
+            let li = document.getElementById(`${titulosId}`);
+            li.remove();
+      }
+      tareasStorage = [];      
+      localStorage.setItem("tareasStorage", JSON.stringify(tareasStorage));
 };
-
 
 const alerta = (texto, color) => {
       if (color === "rojo"){
